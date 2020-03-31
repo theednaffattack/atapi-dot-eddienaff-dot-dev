@@ -1,0 +1,58 @@
+version: "3"
+services:
+  at-redis:
+    image: redis
+    ports:
+      # - "6379:6379"
+
+  at-db:
+    container_name: ${CONTAINER_DB_NAME}
+    restart: unless-stopped
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      VIRTUAL_PORT: 7000
+    volumes:
+      - ${DB_PATH}:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  at-api:
+    image: ${ATAPI_IMAGE}
+    expose:
+      - 80
+    depends_on:
+      - at-redis
+      - at-db
+    command:
+      ["./wait-for-it.sh", "at-db:5432", "--", "node", "/app/dist/index.js"]
+    environment:
+      VIRTUAL_PORT: ${ATAPI_VIRTUAL_PORT}
+      VIRTUAL_HOST: ${ATAPI_VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      PORT: ${ATAPI_VIRTUAL_PORT}
+      GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+      SESSION_SECRET: ${SESSION_SECRET}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT_NUMBER: ${REDIS_PORT_NUMBER}
+      DB_HOST: ${AT_DB_HOST}
+      DB_PORT: ${AT_DB_PORT}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TYPEORM_SYNCHRONIZE: "false"
+      TYPEORM_LOGGING: "false"
+      PRODUCTION_CLIENT_ORIGIN: ${PRODUCTION_CLIENT_ORIGIN}
+      PRODUCTION_API_ORIGIN: ${PRODUCTION_API_ORIGIN}
+      BUILD_FLAG: ${BUILD_FLAG}
+      POSTMARK_API_TOKEN: ${POSTMARK_API_TOKEN}
+    ports:
+      - "7000:7000"
+# networks:
+#   default:
+#     external:
+#       name: ${NETWORK}
+

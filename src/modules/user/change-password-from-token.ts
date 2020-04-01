@@ -1,19 +1,18 @@
 import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from "type-graphql";
 import bcrypt from "bcryptjs";
-import { getRepository } from "typeorm";
 
 import { redis } from "../../redis";
 import { User } from "../../entity/User";
 import { forgotPasswordPrefix } from "../constants/redisPrefixes";
-import { ChangePasswordInput } from "./changePassword/ChangePasswordInput";
+import { ChangePasswordInput } from "./change-password/change-password-input";
 import { MyContext } from "src/types/MyContext";
 import { isAuth } from "../middleware/isAuth";
-import { loggerMiddleware } from "../middleware/logger";
+import { logger } from "../middleware/logger";
 
 // prettier-ignore
 @Resolver()
 export class ChangePasswordFromTokenResolver {
-  @UseMiddleware(isAuth, loggerMiddleware)
+  @UseMiddleware(isAuth, logger)
   @Mutation(() => User, { nullable: true })
   async changePasswordFromToken(
     @Arg("data") { token, password }: ChangePasswordInput,
@@ -28,7 +27,7 @@ export class ChangePasswordFromTokenResolver {
       return null;
     }
 
-    const user = await getRepository(User).findOne(userId);
+    const user = await User.findOne(userId);
 
     // can't find a user in the db
     if (!user) {

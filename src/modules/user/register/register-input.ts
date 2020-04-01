@@ -1,8 +1,10 @@
 import { Length, IsEmail } from "class-validator";
 import { Field, InputType } from "type-graphql";
-import { IsEmailAlreadyExist } from "./isEmailAlreadyExists";
+
+import { IsEmailAlreadyExist } from "./is-email-already-exists";
 import { PasswordInput } from "../../shared/password-input";
 
+// prettier-ignore
 @InputType()
 export class RegisterInput extends PasswordInput {
   @Field()

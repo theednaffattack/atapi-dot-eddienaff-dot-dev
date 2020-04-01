@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import casual from "casual";
-// import { inspect } from "util";
+import { inspect } from "util";
 
 import { testConn } from "../../../test-utils/testConn";
 import { gCall } from "../../../test-utils/gCall";
@@ -64,11 +64,9 @@ describe("Register", () => {
       },
     });
 
-    console.log("THE HELL IS GOING ON???", {
-      response,
-      mockUser,
-      responseUser,
-    });
+    console.log("THE HELL IS GOING ON???", inspect(response, false, 3, true));
+    console.log(inspect(mockUser, false, 3, true));
+    console.log(inspect(responseUser, false, 3, true));
 
     expect(response).toMatchObject({
       data: responseUser,

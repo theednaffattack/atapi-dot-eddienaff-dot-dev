@@ -11,7 +11,7 @@ import {
 } from "type-graphql";
 
 import { isAuth } from "../middleware/isAuth";
-import { loggerMiddleware } from "../middleware/logger";
+import { logger } from "../middleware/logger";
 import { MyContext } from "../../types/MyContext";
 import { User } from "../../entity/User";
 import { Image } from "../../entity/Image";
@@ -30,6 +30,7 @@ registerEnum(
   `Describes whether a profile upload has been created or deleted in the database.`,
 );
 
+// prettier-ignore
 @InputType()
 export class UploadProfilePictureInput {
   @Field(() => ID)
@@ -39,6 +40,7 @@ export class UploadProfilePictureInput {
   image: string;
 }
 
+// prettier-ignore
 @ObjectType()
 export class UploadProfilePictueReturnType {
   @Field(() => String)
@@ -48,9 +50,10 @@ export class UploadProfilePictueReturnType {
   profileImgUrl: string;
 }
 
+// prettier-ignore
 @Resolver()
 export class ProfilePictureResolver {
-  @UseMiddleware(isAuth, loggerMiddleware)
+  @UseMiddleware(isAuth, logger)
   @Mutation(() => UploadProfilePictueReturnType)
   async addProfilePicture(
     @Ctx() context: MyContext,

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Resolver,
   Mutation,
@@ -8,7 +10,7 @@ import {
 } from "type-graphql";
 
 import { User } from "../../entity/User";
-import { RegisterInput } from "./register/RegisterInput";
+import { RegisterInput } from "./register/register-input";
 // import { Product } from "../../entity/Product";
 
 function createBaseResolver<T extends ClassType, X extends ClassType>(
@@ -16,11 +18,12 @@ function createBaseResolver<T extends ClassType, X extends ClassType>(
   returnType: T,
   inputType: X,
   entity: any,
-) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
-    // @Query(type => [objectTypeCls], { name: `getAll${suffix}` })
-    // async getAll(@Arg("first", type => Int) first: number): Promise<T[]> {
+    // @Query(() => [objectTypeCls], { name: `getAll${suffix}` })
+    // async getAll(@Arg("first", () => Int) first: number): Promise<T[]> {
     //   return this.items.slice(0, first);
     // }
 

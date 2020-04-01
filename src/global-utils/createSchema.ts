@@ -4,18 +4,40 @@ import { pubsub } from "../global-utils/redis-config";
 
 import { customAuthChecker } from "../modules/utils/custom-auth-checker";
 
-import { ChangePasswordFromContextUseridResolver } from "../modules/user/ChangePasswordFromContextUserid";
-import { ChangePasswordFromTokenResolver } from "../modules/user/ChangePasswordFromToken";
-import { ConfirmUserResolver } from "../modules/user/ConfirmUser";
-import { ForgotPasswordResolver } from "../modules/user/ForgotPassword";
-import { LoginResolver } from "../modules/user/Login";
-import { LogoutResolver } from "../modules/user/Logout";
-import { MeResolver } from "../modules/user/Me";
-import { RegisterResolver } from "../modules/user/Register";
-import { CreateUserResolver } from "../modules/user/CreateUser";
-import { ProfilePictureResolver } from "../modules/user/ProfilePictureUpload";
+import { ChangePasswordFromContextUseridResolver } from "../modules/user/change-password-from-context-userid";
+import { ChangePasswordFromTokenResolver } from "../modules/user/change-password-from-token";
+import { ConfirmUserResolver } from "../modules/user/confirm-user";
+import { ForgotPasswordResolver } from "../modules/user/forgot-password";
+import { LoginResolver } from "../modules/user/login";
+import { LogoutResolver } from "../modules/user/logout";
+import { MeResolver } from "../modules/user/me";
+import { RegisterResolver } from "../modules/user/register";
+import { CreateUserResolver } from "../modules/user/create-user";
+import { ProfilePictureResolver } from "../modules/user/profile-picture-upload";
 import { EditUserInfoResolver } from "../modules/user/edit-user-info";
 import { AdminEditUserInfoResolver } from "../modules/user/admin/admin-edit-user-info";
+
+// Hotel
+import {
+  CreateHotelResolver,
+  GetAllHotelResolver,
+  HotelAvgRatingResolver,
+  HotelCountReviewsResolver,
+} from "../modules/hotel/CreateHotel";
+
+// Reservations
+import {
+  CreateReservationResolver,
+  GetAllReservationsResolver,
+  GetReservationsByHotelId,
+} from "../modules/hotel/reservations/ExportedResolvers";
+
+// Messages
+import { GetMyMessagesResolver } from "../modules/messages/get-my-messages";
+import { MessageResolver } from "../modules/messages/send-messages";
+
+import { CreateReviewsResolver } from "../modules/hotel/reviews/CreateReview";
+import { GetReservationByHotelIDAndDateFilterResolver } from "../modules/hotel/reservations/GetReservationByHotelIDAndDateFilterResolver";
 
 // // IF WE WANT IMAGES...
 import { SignS3 } from "../modules/aws-s3/s3-sign-mutation";
@@ -39,12 +61,26 @@ export const createSchema = (): Promise<GraphQLSchema> =>
       ChangePasswordFromContextUseridResolver,
       ChangePasswordFromTokenResolver,
       ConfirmUserResolver,
+      CreateHotelResolver,
+
+      CreateReservationResolver,
+      CreateReviewsResolver,
       CreateUserResolver,
       EditUserInfoResolver,
       ForgotPasswordResolver,
+      GetAllHotelResolver,
+
+      GetAllReservationsResolver,
+      GetMyMessagesResolver,
+
+      GetReservationsByHotelId,
+      GetReservationByHotelIDAndDateFilterResolver,
+      HotelAvgRatingResolver,
+      HotelCountReviewsResolver,
       LoginResolver,
       LogoutResolver,
       MeResolver,
+      MessageResolver,
       ProfilePictureResolver,
       RegisterResolver,
       SignS3,

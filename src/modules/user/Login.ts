@@ -3,12 +3,13 @@ import bcrypt from "bcryptjs";
 
 import { User } from "../../entity/User";
 import { MyContext } from "../../types/MyContext";
-import { loggerMiddleware } from "../middleware/logger";
+import { logger } from "../middleware/logger";
 import { getRepository } from "typeorm";
 
+// prettier-ignore
 @Resolver()
 export class LoginResolver {
-  @UseMiddleware(loggerMiddleware)
+  @UseMiddleware(logger)
   @Mutation(() => User, { nullable: true })
   async login(
     @Arg("email") email: string,

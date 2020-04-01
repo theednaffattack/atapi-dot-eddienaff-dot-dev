@@ -3,14 +3,15 @@ import { Arg, Resolver, Mutation, UseMiddleware, Ctx } from "type-graphql";
 import { User } from "../../entity/User";
 import { EditUserInput } from "./register/edit-user-input";
 import { isAuth } from "../middleware/isAuth";
-import { loggerMiddleware } from "../middleware/logger";
+import { logger } from "../middleware/logger";
 import { MyContext } from "../../types/MyContext";
 
 const errorMessageBase = "Error saving info to database";
 
+// prettier-ignore
 @Resolver()
 export class EditUserInfoResolver {
-  @UseMiddleware(isAuth, loggerMiddleware)
+  @UseMiddleware(isAuth, logger)
   @Mutation(() => User)
   async editUserInfo(
     @Arg("data")

@@ -1,10 +1,11 @@
 import { Resolver, Mutation, Ctx, UseMiddleware } from "type-graphql";
 import { MyContext } from "../../types/MyContext";
-import { loggerMiddleware } from "../middleware/logger";
+import { logger } from "../middleware/logger";
 
+// prettier-ignore
 @Resolver()
 export class LogoutResolver {
-  @UseMiddleware(loggerMiddleware)
+  @UseMiddleware(logger)
   @Mutation(() => Boolean)
   async logout(@Ctx() ctx: MyContext): Promise<boolean> {
     return new Promise((resolve, reject) => {

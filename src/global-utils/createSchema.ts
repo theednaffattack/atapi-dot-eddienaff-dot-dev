@@ -56,23 +56,19 @@ export const createSchema = (): Promise<GraphQLSchema> =>
   buildSchema({
     // alphabetical please!
     resolvers: [
-      // AddMessageToChannelResolver,
       AdminEditUserInfoResolver,
       ChangePasswordFromContextUseridResolver,
       ChangePasswordFromTokenResolver,
       ConfirmUserResolver,
       CreateHotelResolver,
-
       CreateReservationResolver,
       CreateReviewsResolver,
       CreateUserResolver,
       EditUserInfoResolver,
       ForgotPasswordResolver,
       GetAllHotelResolver,
-
       GetAllReservationsResolver,
       GetMyMessagesResolver,
-
       GetReservationsByHotelId,
       GetReservationByHotelIDAndDateFilterResolver,
       HotelAvgRatingResolver,

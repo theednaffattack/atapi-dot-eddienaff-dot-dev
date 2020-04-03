@@ -18,4 +18,6 @@ export const logger: MiddlewareFn<MyContext> = async ({ info }, next) => {
     name: `${info.parentType.name}.${info.fieldName}`,
     ms: `${resolveTime} ms`,
   });
+
+  loggerTransport.info(info);
 };

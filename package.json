@@ -72,7 +72,7 @@
     "postmark": "^2.5.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.17.6",
-    "typeorm": "^0.2.24",
+    "typeorm": "^0.2.25",
     "utf-8-validate": "^5.0.2",
     "uuid": "^7.0.2"
   }

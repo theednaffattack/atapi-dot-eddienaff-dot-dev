@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.11.0",
-    "aws-sdk": "^2.640.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "^2.4.3",
     "bufferutil": "^4.0.1",
     "canvas": "^2.5.0",
